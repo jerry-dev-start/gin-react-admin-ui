@@ -1,0 +1,92 @@
+.layout {
+  min-height: 100vh;
+}
+
+.sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoText {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu {
+  margin-top: 8px;
+  border-right: none;
+}
+
+.mainWrap {
+  margin-left: 220px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.2s ease;
+}
+
+.layoutCollapsed .mainWrap {
+  margin-left: 80px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.trigger {
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+}
+
+.trigger:hover {
+  color: #1677ff;
+}
+
+.user {
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.user:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.content {
+  flex: 1;
+  margin: 24px;
+  padding: 24px;
+  min-height: 280px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}

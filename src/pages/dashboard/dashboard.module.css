@@ -1,0 +1,35 @@
+.dashboard {
+  min-height: 100%;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header .ant-typography {
+  display: block;
+}
+
+.stats {
+  margin-bottom: 0;
+}
+
+.statCard {
+  border-radius: 8px;
+}
+
+.statCard :global(.ant-statistic-title) {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 13px;
+}
+
+.statCard :global(.ant-statistic-content-value) {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.placeholder {
+  color: rgba(0, 0, 0, 0.45);
+  margin: 0;
+  padding: 16px 0;
+}
