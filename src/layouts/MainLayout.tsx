@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
-import { Layout, Menu, Dropdown, Avatar, Space, Typography } from 'antd';
+import { Layout, Menu, Dropdown, Avatar, Space, Typography, Watermark } from 'antd';
 import type { MenuProps } from 'antd';
 import {
   DashboardOutlined,
@@ -68,7 +68,8 @@ export function MainLayout() {
   ];
 
   return (
-    <Layout className={`${styles.layout} ${collapsed ? styles.layoutCollapsed : ''}`}>
+    <Watermark content="微梦科技" style={{ minHeight: '100vh' }}>
+      <Layout className={`${styles.layout} ${collapsed ? styles.layoutCollapsed : ''}`}>
       <Sider
         theme="dark"
         width={SIDER_WIDTH}
@@ -119,6 +120,7 @@ export function MainLayout() {
         </Content>
       </Layout>
     </Layout>
+    </Watermark>
   );
 }
 
