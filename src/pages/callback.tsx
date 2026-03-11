@@ -2,10 +2,37 @@
  * 单点登录回调页（页面结构 only，业务逻辑后续自行接入）
  * 与登录页同一套视觉：深色渐变 + 网格 + 玻璃卡片
  */
-import { Link } from 'react-router-dom';
+import { Link,useSearchParams, useNavigate } from 'react-router-dom';
 import styles from '@/pages/callback.module.css';
+import { useEffect } from 'react';
+
 
 export default function CallbackPage() {
+
+  // 1. 使用 useSearchParams 获取 URL 参数工具
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    // 2. 直接通过 .get() 方法获取具体的参数值
+    const code = searchParams.get('code');
+    const state = searchParams.get('state');
+
+    // 打印看看拿到了没
+    console.log("获取到的 code:", code);
+    console.log("获取到的 state:", state);
+
+    if (code) {
+      // 3. 拿到 code 后，下一步就是发给 Gin 后端
+      handleLogin(code, state);
+    } else {
+      console.error("URL 中没有 code 参数");
+    }
+  }, [searchParams]);
+
+  const handleLogin = async (code: string, state: string | null) => {
+
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.bgGrid} aria-hidden />
