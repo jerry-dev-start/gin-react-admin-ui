@@ -5,6 +5,7 @@
 import { Link,useSearchParams, useNavigate } from 'react-router-dom';
 import styles from '@/pages/callback.module.css';
 import { useEffect } from 'react';
+import { ssoLogin } from '@/api/auth';
 
 
 export default function CallbackPage() {
@@ -17,15 +18,19 @@ export default function CallbackPage() {
     const code = searchParams.get('code');
     const state = searchParams.get('state');
 
-    // 打印看看拿到了没
-    console.log("获取到的 code:", code);
-    console.log("获取到的 state:", state);
+    // 从会话存储（sessionStorage）读取 PKCE code_verifier（与登录跳转前写入的 key 一致）
+    const pkceCodeVerifier = sessionStorage.getItem('pkce_code_verifier');
 
-    if (code) {
-      // 3. 拿到 code 后，下一步就是发给 Gin 后端
-      handleLogin(code, state);
+    // 打印看看拿到了没
+    console.log('获取到的 code:', code);
+    console.log('获取到的 state:', state);
+    console.log('获取到的 pkce_code_verifier:', pkceCodeVerifier);
+
+    if (code && state) {
+      // 3. 拿到 code 后发给后端；PKCE 场景下可带上 code_verifier
+      ssoLogin(code, state, pkceCodeVerifier ?? undefined);
     } else {
-      console.error("URL 中没有 code 参数");
+      console.error('URL 中没有 code 参数');
     }
   }, [searchParams]);
 

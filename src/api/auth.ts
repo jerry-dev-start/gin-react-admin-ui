@@ -26,3 +26,12 @@ function buildAuthUrl(path: string) {
 export function getSsoLoginUrl() {
   return buildAuthUrl('/auth/sso/login');
 }
+
+
+export function ssoLogin(code: string, state: string, codeVerifier?: string) {
+  return request.post<any>('/gra/sso/login', {
+    code,
+    state,
+    verifier: codeVerifier,
+  });
+}
