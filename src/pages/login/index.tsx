@@ -5,6 +5,7 @@ import { setToken } from '@/utils/storage';
 import { APP_TITLE } from '@/constants';
 import type { LoginParams } from '@/types/user';
 import styles from '@/pages/login/login.module.css';
+import { CasdoorSDK } from '@/lib/casdoor';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ export default function Login() {
     }
   };
 
+  const ssoLogin = async () => {
+    CasdoorSDK.signin_redirect();
+  }
+
   return (
     <div className={styles.wrapper}>
       {/* 科技感背景层 */}
@@ -56,7 +61,24 @@ export default function Login() {
           <h1 className={styles.title}>{APP_TITLE}</h1>
           <span className={styles.titleIcon}>◆</span>
         </div>
-        <p className={styles.subtitle}>请使用您的账号登录</p>
+        <p className={styles.subtitle}>请使用本地账号登录，或通过单点登录进入系统</p>
+
+        {/* 单点登录：整页跳转至统一认证，适合 CAS/SAML/OIDC 等 */}
+        <button
+          type="button"
+          className={styles.ssoButton}
+          disabled={loading}
+          onClick={ssoLogin}
+          aria-label="单点登录"
+        >
+          单点登录（SSO）
+        </button>
+
+        <div className={styles.ssoDivider}>
+          <span className={styles.ssoDividerLine} />
+          <span className={styles.ssoDividerText}>或使用本地账号</span>
+          <span className={styles.ssoDividerLine} />
+        </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>

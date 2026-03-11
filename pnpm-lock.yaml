@@ -17,6 +17,12 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.13.6
+      casdoor-js-sdk:
+        specifier: ^0.18.0
+        version: 0.18.0
+      casdoor-react-sdk:
+        specifier: ^1.2.0
+        version: 1.2.0
       react:
         specifier: ^19.2.0
         version: 19.2.4
@@ -830,6 +836,12 @@ packages:
   caniuse-lite@1.0.30001777:
     resolution: {integrity: sha512-tmN+fJxroPndC74efCdp12j+0rk0RHwV5Jwa1zWaFVyw2ZxAuPeG8ZgWC3Wz7uSjT3qMRQ5XHZ4COgQmsCMJAQ==}
 
+  casdoor-js-sdk@0.18.0:
+    resolution: {integrity: sha512-UghE4Dyf9dAgp3GYM9HZriCs0AsYrlUXH7NP2nYIOEwZFWm8hNVoRoW/5F1btzAmRIsaJGmjPjQzg4rxXVOmRA==}
+
+  casdoor-react-sdk@1.2.0:
+    resolution: {integrity: sha512-vFR1Gr63LsYqMPzA63r3b2QwHqD0rF3QDfrZbtHT1EqPdVu/gvny5YXK8REgkyY038GDQTBXb5JjNTiWFFIVtw==}
+
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -875,6 +887,9 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
+
+  crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1167,6 +1182,9 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
+  js-pkce@1.5.1:
+    resolution: {integrity: sha512-+NYxv4wAwa/aHKpXS+AhBswxeOtIpxVwoz36oBLHjznCcTg+v8L9ijDR6xtkZb5vsxdpQ7sEWtr4fCc9aIt8yA==}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -1195,6 +1213,10 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+
+  jwt-decode@4.0.0:
+    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
+    engines: {node: '>=18'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -2626,6 +2648,13 @@ snapshots:
 
   caniuse-lite@1.0.30001777: {}
 
+  casdoor-js-sdk@0.18.0:
+    dependencies:
+      js-pkce: 1.5.1
+      jwt-decode: 4.0.0
+
+  casdoor-react-sdk@1.2.0: {}
+
   chalk@4.1.2:
     dependencies:
       ansi-styles: 4.3.0
@@ -2674,6 +2703,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  crypto-js@4.2.0: {}
 
   cssesc@3.0.0: {}
 
@@ -2976,6 +3007,10 @@ snapshots:
 
   jiti@1.21.7: {}
 
+  js-pkce@1.5.1:
+    dependencies:
+      crypto-js: 4.2.0
+
   js-tokens@4.0.0: {}
 
   js-yaml@4.1.1:
@@ -2995,6 +3030,8 @@ snapshots:
       string-convert: 0.2.1
 
   json5@2.2.3: {}
+
+  jwt-decode@4.0.0: {}
 
   keyv@4.5.4:
     dependencies:

@@ -8,6 +8,11 @@ const router = createBrowserRouter([
     path: '/login',
     lazy: () => import('@/pages/login').then((m) => ({ Component: m.default })),
   },
+  /** 单点登录回调：Casdoor 重定向回带 code/state，无需 RequireAuth */
+  {
+    path: '/callback',
+    lazy: () => import('@/pages/callback').then((m) => ({ Component: m.default })),
+  },
   {
     path: '/',
     element: (
