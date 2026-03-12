@@ -18,3 +18,8 @@ export interface CasdoorEnvConfig {
   /** 可选 scope */
   scope?: string;
 }
+
+
+export interface SsoRedirectUrlResponse {
+  Url?: string;
+}

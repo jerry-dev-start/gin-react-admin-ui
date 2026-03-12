@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginApi } from '@/api/auth';
+import {loginApi, ssoRedirectUrl} from '@/api/auth';
 import { setToken } from '@/utils/storage';
 import { APP_TITLE } from '@/constants';
 import type { LoginParams } from '@/types/user';
 import styles from '@/pages/login/login.module.css';
-import { CasdoorSDK } from '@/lib/casdoor';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -42,8 +41,19 @@ export default function Login() {
   };
 
   const ssoLogin = async () => {
-    CasdoorSDK.signin_redirect();
-  }
+    // 回跳地址：优先环境变量，否则当前站点 + Casdoor/SSO 回调路径（与后端约定一致）
+    const redirectUrl = import.meta.env.VITE_SSO_REDIRECT_URL as string
+
+    const data = await ssoRedirectUrl(redirectUrl);
+    // 后端可能直接返回 URL 字符串，或包在对象里
+    const targetUrl = data.Url
+    
+    if (!targetUrl || typeof targetUrl !== 'string') {
+      setError('未获取到有效的 SSO 跳转地址，请检查后端返回格式');
+      return;
+    }
+    window.location.href = targetUrl;
+  };
 
   return (
     <div className={styles.wrapper}>

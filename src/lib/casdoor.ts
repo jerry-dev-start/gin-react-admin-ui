@@ -8,7 +8,6 @@ const sdkConfig = {
     organizationName: "vm_group",
     redirectPath: "/callback",
     signinPath: "/api/signin",
-    PublicKeyCredential: false
 };
 
 export const CasdoorSDK = new Sdk(sdkConfig);
