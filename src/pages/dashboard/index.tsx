@@ -6,6 +6,7 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons';
 import styles from '@/pages/dashboard/dashboard.module.css';
+import FileUploadFile from '@/components/upload/FileUploadFile';
 
 const { Title, Text } = Typography;
 
@@ -71,6 +72,9 @@ export default function Dashboard() {
             <p className={styles.placeholder}>此处可放置最新动态或系统通知</p>
           </Card>
         </Col>
+      </Row>
+      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+        <FileUploadFile />
       </Row>
     </div>
   );
