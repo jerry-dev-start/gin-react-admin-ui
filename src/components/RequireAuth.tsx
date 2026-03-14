@@ -9,8 +9,7 @@ interface RequireAuthProps {
 export function RequireAuth({ children }: RequireAuthProps) {
   const location = useLocation();
 
-  // if (!getToken()) {
-  if (false) {
+  if (!getToken()) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

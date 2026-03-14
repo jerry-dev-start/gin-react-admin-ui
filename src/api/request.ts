@@ -9,7 +9,7 @@ import type { ApiResponse } from '@/types/response';
 import { API_SUCCESS_CODE } from '@/types/response';
 import { getToken } from '@/utils/storage';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/gra';
 
 const instance: AxiosInstance = axios.create({
   baseURL: BASE_URL,

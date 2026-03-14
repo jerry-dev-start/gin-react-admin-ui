@@ -40,6 +40,11 @@ export default function Login() {
     }
   };
 
+  // 用户名和密码登录
+  const upLogin = async()=>{
+    
+  }
+
   const ssoLogin = async () => {
     // 回跳地址：优先环境变量，否则当前站点 + Casdoor/SSO 回调路径（与后端约定一致）
     const redirectUrl = import.meta.env.VITE_SSO_REDIRECT_URL as string
@@ -122,7 +127,7 @@ export default function Login() {
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <button type="submit" className={styles.submit} disabled={loading}>
+          <button type="submit" className={styles.submit} disabled={loading} >
             {loading ? '登录中...' : '登 录'}
           </button>
         </form>

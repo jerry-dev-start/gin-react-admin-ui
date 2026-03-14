@@ -14,21 +14,6 @@ export const useUploader = () => {
 
     // 1. 计算 MD5 的方法（加上类型约束）
     const calculateMD5 = (file: File): Promise<string> => {
-        // return new Promise((resolve, reject) => {
-        // const spark = new SparkMD5.ArrayBuffer();
-        // const reader = new FileReader();
-        
-        // reader.readAsArrayBuffer(file);
-        // reader.onload = (e: ProgressEvent<FileReader>) => {
-        //     if (e.target?.result instanceof ArrayBuffer) {
-        //     spark.append(e.target.result);
-        //     resolve(spark.end());
-        //     } else {
-        //     reject(new Error('文件读取失败'));
-        //     }
-        // };
-        // reader.onerror = () => reject(new Error('文件读取出错'));
-        // });
         return new Promise((resolve, reject) => {
             const chunkSize = 10 * 1024 * 1024; // 每次读取 10MB
             const chunks = Math.ceil(file.size / chunkSize);
@@ -79,7 +64,7 @@ export const useUploader = () => {
             if (actualFile.size <= CHUNK_SIZE) {
                 const formData = new FormData();
                 formData.append('file', actualFile);
-                const response = await request.post<UploadFile>('/gra/file/uploadSimple', formData, {
+                const response = await request.post<UploadFile>('/file/uploadSimple', formData, {
                     onUploadProgress(progressEvent) {
                         if (progressEvent.total) {
                             const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -97,9 +82,8 @@ export const useUploader = () => {
             // --- 情况 B: 分片上传 ---
             // 计算哈希
             const md5: string = await calculateMD5(actualFile);
-            console.log('启动分片上传...');
             // 2. 初始化分片上传 (Init)
-            const initResponse = await request.post<InitUploadResponse>('/gra/file/chunkInit', {
+            const initResponse = await request.post<InitUploadResponse>('/file/chunkInit', {
                 fileName: actualFile.name,
                 fileSize: actualFile.size,
                 md5: md5,
