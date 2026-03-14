@@ -14,20 +14,58 @@ export const useUploader = () => {
 
     // 1. 计算 MD5 的方法（加上类型约束）
     const calculateMD5 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-        const spark = new SparkMD5.ArrayBuffer();
-        const reader = new FileReader();
+        // return new Promise((resolve, reject) => {
+        // const spark = new SparkMD5.ArrayBuffer();
+        // const reader = new FileReader();
         
-        reader.readAsArrayBuffer(file);
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-            if (e.target?.result instanceof ArrayBuffer) {
-            spark.append(e.target.result);
-            resolve(spark.end());
-            } else {
-            reject(new Error('文件读取失败'));
-            }
-        };
-        reader.onerror = () => reject(new Error('文件读取出错'));
+        // reader.readAsArrayBuffer(file);
+        // reader.onload = (e: ProgressEvent<FileReader>) => {
+        //     if (e.target?.result instanceof ArrayBuffer) {
+        //     spark.append(e.target.result);
+        //     resolve(spark.end());
+        //     } else {
+        //     reject(new Error('文件读取失败'));
+        //     }
+        // };
+        // reader.onerror = () => reject(new Error('文件读取出错'));
+        // });
+        return new Promise((resolve, reject) => {
+            const chunkSize = 10 * 1024 * 1024; // 每次读取 10MB
+            const chunks = Math.ceil(file.size / chunkSize);
+            let currentChunk = 0;
+            
+            const spark = new SparkMD5.ArrayBuffer();
+            const reader = new FileReader();
+
+            const loadNext = () => {
+                const start = currentChunk * chunkSize;
+                const end = Math.min(start + chunkSize, file.size);
+                // 只读取当前的一小块
+                reader.readAsArrayBuffer(file.slice(start, end));
+            };
+
+            reader.onload = (e) => {
+                if (e.target?.result instanceof ArrayBuffer) {
+                    spark.append(e.target.result); // 将这一块加入计算
+                    currentChunk++;
+
+                    if (currentChunk < chunks) {
+                        // 如果还没读完，继续读下一块
+                        loadNext();
+                    } else {
+                        // 全部读完，生成最终 MD5
+                        resolve(spark.end());
+                    }
+                }
+            };
+
+            reader.onerror = (e) => {
+                console.error('MD5计算失败:', reader.error);
+                reject(new Error(`读取分块 ${currentChunk} 失败: ${reader.error?.message}`));
+            };
+
+            // 开始第一块读取
+            loadNext();
         });
     };
   
@@ -98,7 +136,11 @@ export const useUploader = () => {
                 formData.append('index', index.toString());
                 formData.append('uploadId', uploadId);
 
-                await request.post('/gra/file/uploadChunk', formData);
+                await request.post('/gra/file/uploadChunk', formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                });
                 
                 // 增加完成数，并更新整体进度
                 completedCount++;
@@ -129,6 +171,8 @@ export const useUploader = () => {
             onProgress?.({ percent: 100 });
             onSuccess?.(completeResponse);
         }catch (err) {
+            console.log(err);
+            
             // 错误回调
             onError?.(err as Error);
         }
